@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<!--
+  Copyright (c) 2015, 2019, Oracle and/or its affiliates.
+  The Universal Permissive License (UPL), Version 1.0
+-->
+
+<!-- ************************ IMPORTANT INFORMATION ************************************
+  This blank template contains a basic hybrid mobile application setup with a header.
+        It contains the Oracle JET framework and a default requireJS
+  configuration file to show how JET can be setup in a common application.
+  This project template can be used in conjunction with demo code from the JET
+  website to test JET component behavior and interactions.
+
+  Any CSS styling with the prefix "demo-" is for demonstration only and is not
+  provided as part of the JET framework.
+
+  Best practice patterns are provided as part of the JET website under the Samples section.
+
+  Aria Landmark role attributes are added to the different sections of the application
+  for accessibility compliance. If you change the type of content for a specific
+  section from what is defined, you should also change the role value for that
+  section to represent the appropriate content type.
+  ***************************** IMPORTANT INFORMATION ************************************ -->
+<html lang="en-us">
+
+<head>
+  <title>Indoor Positioning System</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src *; script-src 'self' http://* *.oracle.com 'unsafe-inline' 'unsafe-eval'; style-src 'self' http://* *.oracle.com 'unsafe-inline'; img-src * data:">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="css/images/favicon.ico" type="image/x-icon" />
+
+  <!-- injector:theme -->
+  <link rel="stylesheet" href="css/libs/oj/v6.1.0/alta/oj-alta-min.css" id="css" />
+  <!-- endinjector -->
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"
+    integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+    crossorigin="" />
+  <link href='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet' />
+
+  <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"
+    integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw=="
+    crossorigin=""></script>
+  <script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" crossorigin=""></script>
+
+  <!-- This is where you would add any app specific styling -->
+
+  <style>
+    html, 
+    body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    #map {
+      width: 100vw;
+      height: 100%;
+    }
+
+    #floor-selector {
+      position: absolute;
+      bottom: 30px;
+      right: 20px;
+      z-index: 300001;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .floor-button {
+      margin-top: 5px;
+      margin-bottom: 5px;
+      height: 40px;
+      width: 60px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      padding-left: 10px;
+      padding-right: 10px;
+      margin-right: auto;
+      margin-left: auto;
+      display: block;
+      background-color: white;
+      border: 1px solid #888;
+      text-align: center;
+      font-weight: bold;
+      font-size: 16pt;
+      color: black;
+      border-radius: 4px;
+    }
+
+    #floor-number {
+      height: 33px;
+      padding-top: 6px;
+      width: 60px;
+      text-align: center;
+      font-size: 16pt;
+      font-weight: bold;
+      margin-right: auto;
+      margin-left: auto;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id='map'></div>
+  <div id="floor-selector" class="hidden">
+    <button class="floor-button" id="floor-up">▲</button>
+    <div id="floor-number">-</div>
+    <button class="floor-button" id="floor-down">▼</button>
+  </div>
+
+  <script type="text/javascript" src="js/libs/require/require.js"></script>
+  <script type="text/javascript" src="js/main.js"></script>
+
+  <script type="text/javascript" src="cordova.js"></script>
+  <script type="text/javascript" src="js/APIKeys.js"></script>
+  <script type="text/javascript" src="js/Leaflet.ImageOverlay.Rotated.js"></script>
+  <script type="text/javascript" src="js/Leaflet.RotatedMarker.js"></script>
+  <script type="text/javascript" src="js/FloorPlanUtil.js"></script>
+  <script type="text/javascript" src="js/FloorPlanSelector.js"></script>
+  <script type="text/javascript" src="js/Wayfinding.js"></script>
+  <script type="text/javascript" src="js/index.js"></script>
+</body>
+
+</html>

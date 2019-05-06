@@ -1,0 +1,58 @@
+{
+  "cordova-plugin-whitelist": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-whitelist@1"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-spinner": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-spinner@^1.1.0"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-indooratlas": {
+    "source": {
+      "type": "registry",
+      "id": "https://github.com/IndoorAtlas/cordova-plugin.git"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "com.unarin.cordova.beacon": {
+    "source": {
+      "type": "registry",
+      "id": "https://github.com/petermetz/cordova-plugin-ibeacon.git"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-device": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-device@^2.0.2"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-local-notification": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-local-notification"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-badge": {
+    "source": {
+      "type": "registry",
+      "id": "https://github.com/katzer/cordova-plugin-badge.git"
+    },
+    "is_top_level": true,
+    "variables": {}
+  }
+}
