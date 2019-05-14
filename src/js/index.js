@@ -7,7 +7,7 @@
 * "License"); you may not use this file except in compliance
 * with the License.  You may obtain a copy of the License at
 *
-* http://www.apache.org/licenses/LICENSE-2.0
+* http://www.apache.org/licenses/LICENSE
 *
 * Unless required by applicable law or agreed to in writing,
 * software distributed under the License is distributed on an
@@ -245,11 +245,63 @@ var cordovaAndIaController = {
   }
 };
 
+var my_media = null;
+
+function playAudio(src) {
+  //Create Media object from src
+  my_media = new Media(src, onSuccess, onError);
+  //Play audio
+  my_media.play();
+}
+
+function pauseAudio() {
+  if (my_media) {
+    my_media.pause();
+  }
+}
+
+function stopAudio() {
+  if (my_media) {
+    my_media.stop();
+  }
+}
+
+// onSuccess Callback
+function onSuccess() {
+  console.log("playAudio():Audio Success")
+}
+
+// onError Callback
+function onError(error) {
+  alert('code: ' + error.code + '\n' + 'message: ' + error.message + '\n');
+}
+
+function NotificationClicked(id) {
+  switch (id) {
+    case 1: // Click on the notification 1 from Beacon Lemon
+
+      break;
+    case 2: // Click on the notification 2 from Beacon Candy
+
+      break;
+    case 3: // Click on the notification 3 from Beacon Beetroot
+      // Play the audio file at url
+      playAudio("https://ia800406.us.archive.org/16/items/JM2013-10-05.flac16/V0/jm2013-10-05-t30-MP3-V0.mp3");
+      break;
+    default:
+      console.log('Dicha notificación no ha sido encontrada');
+  }
+}
+
 function BeaconConfig() {
   var nBeacons =
     [{ uuid: 'B9407F30-F5F8-466E-AFF9-25556B57FE6D', identifier: '887c51c6c8f5c8a37bc234e6c30c1a04', minor: '30708', major: '39902' },
     { uuid: 'B9407F30-F5F8-466E-AFF9-25556B57FE6D', identifier: 'bd2cbdacd2b6199c945411a4887e0119', minor: '20731', major: '60952' },
     { uuid: 'B9407F30-F5F8-466E-AFF9-25556B57FE6D', identifier: 'd38fcae31a6148d7ba210f301ca1b22b', minor: '64936', major: '41230' }];
+
+  var numberLemon = 0;
+  var numberCandy = 0;
+  var numberBeetroot = 0;
 
   var delegate = new cordova.plugins.locationManager.Delegate();
 
@@ -260,24 +312,51 @@ function BeaconConfig() {
   delegate.didStartMonitoringForRegion = function (pluginResult) {
 
   };
-
+  //ENTER WHEN A BEACON IS FOUND
   delegate.didRangeBeaconsInRegion = function (pluginResult) {
     if (pluginResult.beacons.length > 0) {
       var b = pluginResult.beacons[0];
       switch (b.minor) {
-        case '30708':
-          if (b.proximity == 'ProximityImmediate') {
-            //alert('Se encuentra muy cerca del Beacon Lemon');
+        case '30708': // BEACON LEMON
+          if (b.proximity == 'ProximityImmediate' && numberLemon == 0) {
+            cordova.plugins.notification.local.schedule({
+              id: 1,
+              title: 'LEMON NOTIFICATION',
+              text: 'El jardín de las delicias - El Bosco',
+              attachments: ['https://content3.cdnprado.net/imagenes/Documentos/imgsem/02/0238/02388242-6d6a-4e9e-a992-e1311eab3609/272eeb2c-3074-48a2-9653-a3c9b67b3209_832.jpg'],
+              foreground: true
+            });
+            numberLemon++;
+          } else if (b.proximity == 'ProximityNear') {
+            numberLemon = 0;
           }
           break;
-        case '20731':
-          if (b.proximity == 'ProximityImmediate') {
-            //alert('Se encuentra muy cerca del Beacon Candy');
+        case '20731': // BEACON CANDY
+          if (b.proximity == 'ProximityImmediate' && numberCandy == 0) {
+            cordova.plugins.notification.local.schedule({
+              id: 2,
+              title: 'CANDY NOTIFICATION',
+              text: 'Las Lanzas (La Rendición de Breda) - Diego Velázquez',
+              attachments: ['https://upload.wikimedia.org/wikipedia/commons/4/4e/Vel%C3%A1zquez_-_de_Breda_o_Las_Lanzas_%28Museo_del_Prado%2C_1634-35%29.jpg'],
+              foreground: true
+            });
+            numberCandy++;
+          } else if (b.proximity == 'ProximityNear') {
+            numberCandy = 0;
           }
           break;
-        case '64936':
-          if (b.proximity == 'ProximityImmediate') {
-            //alert('Se encuentra muy cerca del Beacon Beetroot');
+        case '64936': // BEACON BEETROOT
+          if (b.proximity == 'ProximityImmediate' && numberBeetroot == 0) {
+            cordova.plugins.notification.local.schedule({
+              id: 3,
+              title: 'BEETROOT NOTIFICATION',
+              text: 'Fusilamiento del 3 de mayo - Goya',
+              attachments: ['https://content3.cdnprado.net/imagenes/Documentos/imgsem/f0/f0f5/f0f52ca5-546a-44c4-8da0-f3c2603340b5/a88d41b7-8f41-459f-ab8f-7e9efcde99c7.jpg'],
+              foreground: true
+            });
+            numberBeetroot++;
+          } else if (b.proximity == 'ProximityNear') {
+            numberBeetroot = 0;
           }
           break;
         default:
@@ -285,6 +364,10 @@ function BeaconConfig() {
       }
     }
   };
+  // THE USER HAS CLICKED ON A NOTIFICATION
+  cordova.plugins.notification.local.on("click", function (notification) {
+    NotificationClicked(notification.id);
+  });
 
   cordova.plugins.locationManager.setDelegate(delegate);
   cordova.plugins.locationManager.requestAlwaysAuthorization();
@@ -297,7 +380,7 @@ function BeaconConfig() {
     cordova.plugins.locationManager.startRangingBeaconsInRegion(beaconRegion);
   }
 }
- 
+
 cordovaAndIaController.initialize();
 var app = new IndoorSystemApp();
 document.addEventListener('deviceready', BeaconConfig);
