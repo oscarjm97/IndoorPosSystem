@@ -25,7 +25,13 @@
 
 <head>
     <title>Media Example</title>
-    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src *; script-src 'self' http://* *.oracle.com 'unsafe-inline' 'unsafe-eval'; style-src 'self' http://* *.oracle.com 'unsafe-inline'; img-src * data:">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script src="http://code.jquery.com/jquery-3.4.1.min.js" crossorigin=""></script>
+
+    <script type="text/javascript" src="cordova.js"></script>
 </head>
 
 <body>
